@@ -1,0 +1,28 @@
+body{
+    background-color: aliceblue;
+    
+    
+}
+#hola{
+    /*font-family: Bradley Hand ITC;*/
+    font-family: Kristen ITC;
+    
+    
+}
+#grilla{
+    /*font-family: Bradley Hand ITC;*/
+    font-family: Kristen ITC;
+    font-style: oblique;
+    
+    /*display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    width: 120px;*/
+    
+}
+#inicio{
+    text-align: center;
+    margin-top: 20%;
+    font-family: Kristen ITC;
+}

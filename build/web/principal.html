@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="css/styles.css" type="text/css"  />
+
+    </head>
+    <body>
+        <div id="hola">
+            <div>Agregar nuevo Usuario</div>
+            <input type="text" id="txtCodigo"/><br>
+            <input type="text" id="txtLogin"/><br>
+            <input type="text" id="txtPassword"/><br>
+            <button id="btnRegistrar">Agregar</button>
+        </div>
+        <br><br>
+        <div id="grilla">
+            <center><h3>Usuarios creados</h3></center>
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>CodiUsua</th>          
+                        <th>LogUsua</th>
+                        <th>PassUsua</th>
+
+                    </tr>
+                </thead> 
+            </table>
+
+        </div>
+        <script src="jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#btnRegistrar").click(function () {
+                    var codigo = $("#txtCodigo").val();
+                    var login = $("#txtLogin").val();
+                    var password = $("#txtPassword").val();
+                    $.get("registrar.jsp", {codigo: codigo, login: login, password: password}, function (data) {
+                        if (data.trim() === "ok") {
+                            alert('Agrego correctamente');
+                            
+                            var t = $('#example').DataTable({
+                                "ajax": "UsuariosRegistrados.jsp",
+                                "columns": [
+                                    {"data": "codiUsua"},
+                                    {"data": "logiUsua"},
+                                    {"data": "passUsua"}],
+                                "language": {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"}
+                            });
+                            
+                        } else {
+                            alert('Error al agregar');
+                        }
+                    });
+                    //alert("validando..."+login+" "+password);
+
+                });
+                $('#grilla').show();
+
+                var t = $('#example').DataTable({
+                    "ajax": "UsuariosRegistrados.jsp",
+                    "columns": [
+                        {"data": "codiUsua"},
+                        {"data": "logiUsua"},
+                        {"data": "passUsua"}],
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"}
+                });
+                /*$('#example tbody').on('click', 'tr', function () {
+                 if ($(this).hasClass('selected')) {
+                 $(this).removeClass('selected');
+                 } else {
+                 t.$('tr.selected').removeClass('selected');
+                 $(this).addClass('selected');
+                 }
+                 });*/
+
+
+                /*function limpiarForm() {
+                 $('#codigo').val('');
+                 $('#login').val('');
+                 $('#password').val('');
+                 
+                 }
+                 
+                 
+                 function cargarForm(codigo) {
+                 $.getJSON('UsuariosRegistrados.jsp?tipo=0', {codi: codigo}, function (data) {
+                 var row = data.data[0];
+                 $('#codigo').val(row.codiUsua);
+                 $('#login').val(row.logiUsua);
+                 $('#password').val(row.passUsua);
+                 
+                 });
+                 }*/
+            });
+        </script>
+        <br><br>
+
+    </body>
+</html>
